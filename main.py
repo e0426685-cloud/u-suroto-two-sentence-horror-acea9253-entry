@@ -9,6 +9,8 @@ Python standard library only, fully deterministic.
 
 import os
 
+MAX_CHARS = 400
+
 STORY = (
     "For a year I have tucked my daughter in and locked her bedroom door "
     "from the hallway, to keep her safe. "
@@ -22,9 +24,9 @@ def main() -> None:
     assert STORY.strip(), "entry must not be only whitespace"
     assert STORY == STORY.strip(), "entry must not start or end with whitespace"
     assert STORY.endswith("."), "entry must end with a full stop"
-    sentences = [s for s in STORY.split(". ") if s]
-    assert len(sentences) == 2, f"entry must be exactly two sentences, got {len(sentences)}"
-    assert 1 <= len(STORY) <= 400, f"entry must be 1-400 chars, got {len(STORY)}"
+    sentence_parts = [s for s in STORY.split(". ") if s]
+    assert len(sentence_parts) == 2, f"entry must be exactly two sentences, got {len(sentence_parts)}"
+    assert 1 <= len(STORY) <= MAX_CHARS, f"entry must be 1-{MAX_CHARS} chars, got {len(STORY)}"
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(STORY)
